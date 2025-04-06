@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>ดูดวงวันเกิด</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+   body { font-family: sans-serif; text-align: center; padding: 50px; }
+   input, select, button { padding: 10px; margin: 10px; font-size: 16px; }
+</style>
+</head>
+<body>
+<h1 id="title">ทำนายดวงวันเกิด</h1>
+<label id="label-date">วันเกิด:</label>
+<input type="date" id="birthdate"><br>
+<label id="label-lang">เลือกภาษา:</label>
+<select id="lang-select" onchange="updateLanguage()">
+<option value="th">ไทย</option>
+<option value="en">English</option>
+<option value="fr">Français</option>
+</select><br>
+<button onclick="predict()" id="btn">ทำนาย</button>
+<h2 id="result"></h2>
+<script>
+   const texts = {
+     th: {
+       title: "ทำนายดวงวันเกิด",
+       labelDate: "วันเกิด:",
+       labelLang: "เลือกภาษา:",
+       btn: "ทำนาย",
+       predictions: {
+         1: "คุณเป็นคนกล้าหาญ มีพลัง นำทีมเก่ง",
+         2: "ใจดี อ่อนไหว เป็นคนโรแมนติก",
+         3: "ช่างพูด ครีเอทีฟ รักอิสระ",
+         4: "เจ้าระเบียบ จริงจัง วางแผนเก่ง",
+         5: "มีเสน่ห์ ร่าเริง ชอบเปลี่ยนแปลง",
+         6: "รักความสงบ มีจิตใจเมตตา",
+         7: "ลึกซึ้ง ช่างคิด ชอบความลึกลับ",
+         8: "รักความมั่นคง เก่งด้านธุรกิจ",
+         9: "อารมณ์ศิลปิน ใจดี ชอบช่วยเหลือผู้อื่น"
+       }
+     },
+     en: {
+       title: "Birthday Horoscope",
+       labelDate: "Birthdate:",
+       labelLang: "Select language:",
+       btn: "Predict",
+       predictions: {
+         1: "You are courageous, energetic, and a natural leader.",
+         2: "Kind, sensitive, and romantic.",
+         3: "Talkative, creative, and love freedom.",
+         4: "Organized, serious, and good at planning.",
+         5: "Charming, cheerful, and love change.",
+         6: "Peaceful and caring.",
+         7: "Deep thinker, loves mystery.",
+         8: "Stable and business-minded.",
+         9: "Artistic and generous."
+       }
+     },
+     fr: {
+       title: "Horoscope de naissance",
+       labelDate: "Date de naissance:",
+       labelLang: "Choisissez la langue:",
+       btn: "Prédire",
+       predictions: {
+         1: "Vous êtes courageux, énergique et un leader né.",
+         2: "Gentil, sensible et romantique.",
+         3: "Bavard, créatif et aime la liberté.",
+         4: "Organisé, sérieux et bon en planification.",
+         5: "Charmant, joyeux et aime le changement.",
+         6: "Paisible et attentionné.",
+         7: "Réfléchi, aime les mystères.",
+         8: "Stable et orienté business.",
+         9: "Artistique et généreux."
+       }
+     }
+   };
+   let currentLang = 'th';
+   function updateLanguage() {
+     currentLang = document.getElementById('lang-select').value;
+     const t = texts[currentLang];
+     document.getElementById('title').innerText = t.title;
+     document.getElementById('label-date').innerText = t.labelDate;
+     document.getElementById('label-lang').innerText = t.labelLang;
+     document.getElementById('btn').innerText = t.btn;
+     document.getElementById('result').innerText = "";
+   }
+   function predict() {
+     const birthdate = new Date(document.getElementById('birthdate').value);
+     if (!birthdate) return;
+     const day = birthdate.getDate();
+     const path = day % 9 || 9;
+     const message = texts[currentLang].predictions[path];
+     document.getElementById('result').innerText = message;
+   }
+</script>
+</body>
+</html>
