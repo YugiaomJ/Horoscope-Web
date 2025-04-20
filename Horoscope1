@@ -1,98 +1,159 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<title>ดูดวงวันเกิด</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-   body { font-family: sans-serif; text-align: center; padding: 50px; }
-   input, select, button { padding: 10px; margin: 10px; font-size: 16px; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ทำนายฝัน เลขเด็ดจากฝัน</title>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt&display=swap" rel="stylesheet">
+  <meta name="description" content="ทำนายฝัน เลขเด็ด พร้อมคำทำนายแม่นๆ เกี่ยวกับสัตว์ ญาติ การคลอด ความตาย การสอบ พร้อมพื้นที่โฆษณา">
+  <style>
+    body {
+      font-family: 'Prompt', sans-serif;
+      background: linear-gradient(to bottom, #fdfdfd, #fffbe7);
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      color: #333;
+    }
+
+    header {
+      background-color: #f4511e;
+      color: white;
+      padding: 20px 10px;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    input, button {
+      padding: 12px;
+      margin: 10px auto;
+      width: 90%;
+      max-width: 400px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #ff7043;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 30px;
+      padding: 20px;
+      background: #fff8dc;
+      border-radius: 10px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 18px;
+      color: #4e342e;
+    }
+
+    .ad {
+      margin-top: 40px;
+      padding: 10px;
+      background-color: #f1f1f1;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      border: dashed 2px #ccc;
+    }
+
+    footer {
+      margin-top: 50px;
+      background-color: #eee;
+      padding: 10px;
+      font-size: 14px;
+      color: #777;
+    }
+  </style>
 </head>
 <body>
-<h1 id="title">ทำนายดวงวันเกิด</h1>
-<label id="label-date">วันเกิด:</label>
-<input type="date" id="birthdate"><br>
-<label id="label-lang">เลือกภาษา:</label>
-<select id="lang-select" onchange="updateLanguage()">
-<option value="th">ไทย</option>
-<option value="en">English</option>
-<option value="fr">Français</option>
-</select><br>
-<button onclick="predict()" id="btn">ทำนาย</button>
-<h2 id="result"></h2>
-<script>
-   const texts = {
-     th: {
-       title: "ทำนายดวงวันเกิด",
-       labelDate: "วันเกิด:",
-       labelLang: "เลือกภาษา:",
-       btn: "ทำนาย",
-       predictions: {
-         1: "คุณเป็นคนกล้าหาญ มีพลัง นำทีมเก่ง",
-         2: "ใจดี อ่อนไหว เป็นคนโรแมนติก",
-         3: "ช่างพูด ครีเอทีฟ รักอิสระ",
-         4: "เจ้าระเบียบ จริงจัง วางแผนเก่ง",
-         5: "มีเสน่ห์ ร่าเริง ชอบเปลี่ยนแปลง",
-         6: "รักความสงบ มีจิตใจเมตตา",
-         7: "ลึกซึ้ง ช่างคิด ชอบความลึกลับ",
-         8: "รักความมั่นคง เก่งด้านธุรกิจ",
-         9: "อารมณ์ศิลปิน ใจดี ชอบช่วยเหลือผู้อื่น"
-       }
-     },
-     en: {
-       title: "Birthday Horoscope",
-       labelDate: "Birthdate:",
-       labelLang: "Select language:",
-       btn: "Predict",
-       predictions: {
-         1: "You are courageous, energetic, and a natural leader.",
-         2: "Kind, sensitive, and romantic.",
-         3: "Talkative, creative, and love freedom.",
-         4: "Organized, serious, and good at planning.",
-         5: "Charming, cheerful, and love change.",
-         6: "Peaceful and caring.",
-         7: "Deep thinker, loves mystery.",
-         8: "Stable and business-minded.",
-         9: "Artistic and generous."
-       }
-     },
-     fr: {
-       title: "Horoscope de naissance",
-       labelDate: "Date de naissance:",
-       labelLang: "Choisissez la langue:",
-       btn: "Prédire",
-       predictions: {
-         1: "Vous êtes courageux, énergique et un leader né.",
-         2: "Gentil, sensible et romantique.",
-         3: "Bavard, créatif et aime la liberté.",
-         4: "Organisé, sérieux et bon en planification.",
-         5: "Charmant, joyeux et aime le changement.",
-         6: "Paisible et attentionné.",
-         7: "Réfléchi, aime les mystères.",
-         8: "Stable et orienté business.",
-         9: "Artistique et généreux."
-       }
-     }
-   };
-   let currentLang = 'th';
-   function updateLanguage() {
-     currentLang = document.getElementById('lang-select').value;
-     const t = texts[currentLang];
-     document.getElementById('title').innerText = t.title;
-     document.getElementById('label-date').innerText = t.labelDate;
-     document.getElementById('label-lang').innerText = t.labelLang;
-     document.getElementById('btn').innerText = t.btn;
-     document.getElementById('result').innerText = "";
-   }
-   function predict() {
-     const birthdate = new Date(document.getElementById('birthdate').value);
-     if (!birthdate) return;
-     const day = birthdate.getDate();
-     const path = day % 9 || 9;
-     const message = texts[currentLang].predictions[path];
-     document.getElementById('result').innerText = message;
-   }
-</script>
+
+  <header>
+    <h1>ทำนายฝันแม่นๆ พร้อมเลขเด็ด</h1>
+    <p>พิมพ์ความฝัน เช่น “งู”, “หมา”, “แม่”, “ท้อง”, “สอบ”</p>
+  </header>
+
+  <main>
+    <input type="text" id="dreamInput" placeholder="ฝันว่า..." />
+    <button onclick="interpretDream()">ทำนาย</button>
+    <div id="result"></div>
+
+    <div class="ad">
+      <!-- พื้นที่สำหรับโฆษณา Google AdSense -->
+      <p>[พื้นที่โฆษณา Google AdSense]</p>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 ทำนายฝันแม่นๆ โดย AI | อัปเดตล่าสุด
+  </footer>
+
+  <script>
+    const dreams = {
+      // สัตว์
+      "งู": ["จะพบเนื้อคู่ หรือมีคนแอบชอบ", ["56", "65", "559"]],
+      "หมา": ["จะมีเพื่อนหรือคนใกล้ตัวนำโชคมาให้", ["19", "29", "319"]],
+      "แมว": ["ระวังคนใกล้ตัวคิดไม่ซื่อ หรือมีเรื่องให้ต้องแก้ไข", ["11", "21", "112"]],
+      "ปลา": ["จะมีโชคลาภ ได้เงินก้อน หรือของมีค่า", ["88", "17", "287"]],
+      "ช้าง": ["จะได้เลื่อนตำแหน่ง หรือได้รับเกียรติยศ", ["89", "19", "891"]],
+      "เสือ": ["มีอำนาจ ได้รับการยอมรับ หรือมีโชคด้านการงาน", ["36", "63", "763"]],
+      "ไก่": ["มีข่าวดีจากญาติพี่น้อง หรือคนรัก", ["09", "19", "209"]],
+      "นก": ["จะได้รับข่าวจากแดนไกล หรือได้เดินทาง", ["07", "77", "707"]],
+      "แมลง": ["มีเรื่องจุกจิกเข้ามา ให้ใจเย็น", ["31", "13", "113"]],
+
+      // ญาติ
+      "แม่": ["จะได้รับข่าวดี หรือมีคนอุปถัมภ์", ["26", "62", "926"]],
+      "พ่อ": ["มีผู้ใหญ่ให้โชค หรือได้คำแนะนำดีๆ", ["14", "41", "914"]],
+      "ยาย": ["มีโชคลาภลอย อาจเป็นเงินเล็กๆ น้อยๆ", ["90", "91", "990"]],
+      "ตา": ["ได้รับสิ่งดีจากผู้ใหญ่หรือเจ้านาย", ["43", "34", "143"]],
+      "พี่": ["จะได้รับของฝาก หรือของมีค่า", ["73", "37", "137"]],
+      "น้อง": ["จะได้ข่าวดี หรือคนใกล้ชิดช่วยเหลือ", ["21", "12", "112"]],
+
+      // อาการเจ็บป่วย
+      "ท้อง": ["กำลังจะมีโชคลาภ หรือเริ่มต้นสิ่งใหม่ๆ", ["19", "91", "119"]],
+      "คลอด": ["จะได้รับโชคหรือข่าวดีเกี่ยวกับครอบครัว", ["39", "93", "193"]],
+      "ตาย": ["หมดเคราะห์ กำลังจะมีเรื่องดีเข้ามา", ["04", "44", "440"]],
+      "เจ็บ": ["สิ่งร้ายกำลังจะผ่านพ้นไป มีโอกาสฟื้นตัว", ["18", "81", "118"]],
+
+      // การเรียน การสอบ
+      "สอบ": ["จะประสบความสำเร็จ หรือได้รับการยอมรับ", ["89", "98", "198"]],
+      "เรียน": ["จะได้พบโอกาสใหม่ หรือได้รับความรู้สำคัญ", ["55", "59", "159"]],
+    };
+
+    function interpretDream() {
+      const input = document.getElementById("dreamInput").value.trim();
+      let resultBox = document.getElementById("result");
+      let found = false;
+
+      for (let keyword in dreams) {
+        if (input.includes(keyword)) {
+          const [meaning, numbers] = dreams[keyword];
+          resultBox.innerHTML = `
+            <p><strong>ความหมาย:</strong> ${meaning}</p>
+            <p><strong>เลขเด็ด:</strong> ${numbers.join(", ")}</p>
+          `;
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        resultBox.innerHTML = "<p>ขออภัย ไม่พบคำทำนายสำหรับความฝันนี้</p>";
+      }
+    }
+  </script>
+
 </body>
 </html>
