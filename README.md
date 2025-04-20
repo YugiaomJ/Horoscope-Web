@@ -1,2 +1,2 @@
 # Horoscope-Web
-Horoscope by birthdate
+Horoscope by dream
